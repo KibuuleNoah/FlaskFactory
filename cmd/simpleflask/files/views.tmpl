@@ -1,10 +1,13 @@
 from flask import Blueprint, render_template
+{{ if .NeedDB }}
 from .models import User
-
+{{ end }}
 views = Blueprint("views", __name__)
 
 
 @views.route("/")
 def index():
+    {{ if .NeedDB }}
     users = User.query.all()
-    return render_template("index.html", users=users)
+    {{ end }}
+    return render_template("index.html"{{ if .NeedDB }}, users=users {{ end }})

@@ -1,27 +1,32 @@
 from flask import Flask
+from .config import Config
+{{ if .NeedDB }}
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
-from .config import Config
 
 db = SQLAlchemy()
 migrate = Migrate()
-
+{{ end }}
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
+{{ if .NeedDB }}
     db.init_app(app)
     migrate.init_app(app, db)
 
+{{ end }}
     from .views import views
 
     app.register_blueprint(views)
 
+{{ if .NeedDB }}
     from .models import User
 
     with app.app_context():
         db.create_all()
 
+{{ end }}
     return app

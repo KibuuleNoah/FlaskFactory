@@ -34,13 +34,21 @@ func main() {
   ` + Reset)
 
 	var projectName string
+	var needDB bool
+	var dbRes string
 
 	fmt.Print(Green + "Enter Project Name\n ~# " + Reset + Cyan)
 	fmt.Scan(&projectName)
 
+	fmt.Print(Green + "Do you need a DataBase(sqlite3) y/n\n ~# " + Reset + Cyan)
+	fmt.Scan(&dbRes)
+	if dbRes == "y" || dbRes == "yes" {
+		needDB = true
+	}
+
 	if len(projectName) > 0 {
 
-		if err := simpleflask.CreateProject(projectName); err != nil {
+		if err := simpleflask.CreateProject(projectName, needDB); err != nil {
 			fmt.Println(Red, "Error: ", err, Reset)
 			return
 		}

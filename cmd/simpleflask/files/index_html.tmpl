@@ -1,8 +1,13 @@
 {% extends "base.html" %} {% block content %}
+
+{{ if .NeedDB }}
 <h1>Users</h1>
 <ul>
   {% for user in users %}
   <li>{{ "{{" }} user.username {{ "}}" }}</li>
   {% endfor %}
 </ul>
+{{ else }}
+<b>Your content Here</b>
+{{ end }}
 {% endblock %}

@@ -1,7 +1,5 @@
 ````markdown
-# My Flask App
-
-A simple Flask application with a basic project structure.
+# {{ .ProjectName }} 
 
 ## Requirements
 
@@ -14,8 +12,8 @@ A simple Flask application with a basic project structure.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/my_flask_app.git
-cd my_flask_app
+git clone https://github.com/yourusername/{{ .ProjectName }}.git
+cd {{ .ProjectName  }}
 ```
 ````
 
@@ -36,6 +34,7 @@ pip install -r requirements.txt
 
 Create a `.env` file in the root directory and add your environment variables:
 
+{{ if .NeedDB }}
 ```
 SECRET_KEY=your_secret_key
 DATABASE_URL=sqlite:///site.db
@@ -48,11 +47,11 @@ flask db init
 flask db migrate -m "Initial migration."
 flask db upgrade
 ```
-
+{{ end }}
 ### 6. Run the Application
 
 ```bash
-flask run
+python main.py
 ```
 
 ## Accessing the Application
